@@ -162,14 +162,14 @@ test_plot = function(fit, varying_cols) {
     is_expected = any(stringr::str_detect(error_message, expected_error))
     expect_true(is_expected)
   } else {
-    testthat::expect_true(ggplot2::is.ggplot(gg))
+    testthat::expect_true(ggplot2::is_ggplot(gg))
   }
 }
 
 # Test plot() calls to bayesplot
 test_plot_pars = function(fit) {
   gg = plot_pars(fit, type = "dens_overlay")
-  testthat::expect_true(ggplot2::is.ggplot(gg))
+  testthat::expect_true(ggplot2::is_ggplot(gg))
 }
 
 
@@ -194,7 +194,7 @@ test_hypothesis = function(fit) {
 
   # Varying
   if (!is.null(fit$pars$varying)) {
-    mcmc_vars = colnames(mcmclist_samples(fit)[[1]])
+    mcmc_vars = colnames(mcp:::mcmclist_samples(fit)[[1]])
     varying_starts = paste0("^", fit$pars$varying[1])
     varying_col_ids = stringr::str_detect(mcmc_vars, varying_starts)
     varying_cols = paste0("`", mcmc_vars[varying_col_ids], "`")  # Add these for varying
@@ -298,7 +298,7 @@ test_pp_eval = function(fit) {
       testthat::expect_true(error_message)
     }
   } else {
-    testthat::expect_true(ggplot2::is.ggplot(pp_default))
+    testthat::expect_true(ggplot2::is_ggplot(pp_default))
   }
 }
 
