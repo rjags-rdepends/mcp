@@ -152,7 +152,7 @@ get_formula_str = function(ST, par_x, ytype = "ct", init = FALSE) {
       if (ytype == "ct") {
         formula_str = paste0(formula_str, "\n\n# Fitted value\ny_[i_] = \n")
       } else if (ytype == "sigma") {
-        formula_str = paste0(formula_str, "# Fitted standard deviation\nsigma_[i_] = max(0, \n")  # Add max(0, [formula]) to prevent modeling negative sigmas. JAGS uses precision = 1 / sigma^2 which yields positive precisions for negative sigmas.
+        formula_str = paste0(formula_str, "# Fitted standard deviation\nsigma_[i_] = max(0.001, \n")  # Add max(0, [formula]) to prevent modeling negative sigmas. JAGS uses precision = 1 / sigma^2 which yields positive precisions for negative sigmas.
       } else if (stringr::str_detect(ytype, "ar[0-9]+")) {
         formula_str = paste0(formula_str, "# Autoregressive coefficient for all AR(", ar_order,")\n", ytype, "_[i_] = \n")
       } else if (stringr::str_detect(ytype, "ma[0-9]+")) {

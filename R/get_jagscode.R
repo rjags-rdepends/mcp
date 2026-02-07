@@ -145,7 +145,9 @@ get_jagscode = function(prior, ST, formula_str, arma_order, family, sample) {
   # Compute residuals for AR
   if (has_ar) {
     if (family$family == "binomial") {
-      mm = paste0(mm, "\n    resid_abs_[i_] = ", family$linkfun_str, "(", ST$y[1], "[i_] / ", ST$trials[1], "[i_]) - y_[i_]  # Residuals represented by sigma_ after ARMA")
+      mm = paste0(mm, "\n    resid_abs_[i_] = ", family$linkfun_str, "(0.01 + 0.98 * ", ST$y[1], "[i_] / ", ST$trials[1], "[i_]) - y_[i_]  # Residuals represented by sigma_ after ARMA")
+    } else if (family$family == "poisson") {
+      mm = paste0(mm, "\n    resid_abs_[i_] = ", family$linkfun_str, "(0.01 +  ", ST$y[1], "[i_]) - y_[i_]  # Residuals represented by sigma_ after ARMA")
     } else {
       mm = paste0(mm, "\n    resid_abs_[i_] = ", family$linkfun_str, "(", ST$y[1], "[i_])  - y_[i_]  # Residuals represented by sigma_ after ARMA")
     }
